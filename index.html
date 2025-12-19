@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -42,22 +41,19 @@
             padding: 15px 20px 0 20px;
             z-index: 100;
             flex-shrink: 0;
-            border-bottom: 1px solid transparent; /* Removi a borda para ficar mais clean */
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03); /* Sombra muito suave */
+            border-bottom: 1px solid transparent;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
         }
 
         .header-row {
             display: flex;
-            justify-content: flex-start; /* Alinha tudo à esquerda */
+            justify-content: flex-start;
             align-items: center;
             gap: 12px;
             margin-bottom: 15px;
         }
 
-        .logo-img { 
-            height: 24px; /* Tamanho ideal discreto */
-            width: auto; 
-        }
+        .logo-img { height: 24px; width: auto; }
         
         .header-title {
             font-size: 1rem;
@@ -66,12 +62,12 @@
             text-transform: uppercase;
         }
 
-        /* --- ABAS (Scroll Horizontal) --- */
+        /* --- ABAS --- */
         .tabs-container {
             display: flex;
             gap: 10px;
             overflow-x: auto;
-            padding-bottom: 15px; /* Mais espaço abaixo das abas */
+            padding-bottom: 15px;
             -ms-overflow-style: none; scrollbar-width: none;
         }
         .tabs-container::-webkit-scrollbar { display: none; }
@@ -94,28 +90,22 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
-        /* --- VIEWPORT (Área de Rolagem) --- */
+        /* --- VIEWPORT --- */
         .viewport {
             flex: 1;
             overflow-y: auto;
-            padding: 25px 20px 40px 20px; /* Aumentei o topo para 25px (Respiro) */
+            padding: 25px 20px 40px 20px;
             position: relative;
-            
-            /* CÓDIGO PARA MATAR A BARRA DE ROLAGEM CINZA */
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none;  /* IE 10+ */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
         }
-        .viewport::-webkit-scrollbar { 
-            width: 0px;
-            background: transparent; /* Chrome/Safari/Webkit */
-            display: none;
-        }
+        .viewport::-webkit-scrollbar { display: none; }
 
         /* --- GRID --- */
         .grid-view {
             display: grid;
             grid-template-columns: repeat(4, 1fr); 
-            gap: 12px; /* Espaço entre botões */
+            gap: 12px;
             animation: slideIn 0.3s ease-out;
         }
 
@@ -147,9 +137,17 @@
             color: #999;
             margin-top: 2px;
             text-transform: uppercase;
+            text-align: center;
+            line-height: 1;
         }
 
-        /* --- RODAPÉ OFICIAL --- */
+        /* Botão Especial (Quedas) */
+        .lesson-btn.special {
+            background-color: #f9f9f9;
+            border-color: #333;
+        }
+
+        /* --- RODAPÉ --- */
         .app-footer {
             margin-top: 40px;
             padding: 30px 20px;
@@ -160,14 +158,11 @@
         
         .footer-logo { width: 60px; opacity: 0.8; margin-bottom: 10px; }
         .footer-text { 
-            color: #666; 
-            font-size: 0.65rem; 
-            font-weight: 600; 
-            text-transform: uppercase; 
-            letter-spacing: 1.5px; 
+            color: #666; font-size: 0.65rem; font-weight: 600; 
+            text-transform: uppercase; letter-spacing: 1.5px; 
         }
 
-        /* --- TELA DE DETALHE --- */
+        /* --- DETALHE --- */
         .detail-view {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -198,13 +193,9 @@
         .lesson-info p { margin: 2px 0 0; font-size: 0.75rem; color: #666; }
 
         .detail-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-            padding-bottom: 60px; /* Espaço extra final */
+            flex: 1; overflow-y: auto; padding: 20px; padding-bottom: 60px;
         }
 
-        /* CONTEÚDO DA AULA */
         .tech-item { margin-bottom: 40px; }
         .tech-title-pt { font-size: 1.1rem; font-weight: 800; display: block; margin-bottom: 5px; }
         .tech-title-en { font-size: 0.85rem; color: #888; font-style: italic; display: block; margin-bottom: 15px; }
@@ -216,11 +207,8 @@
         }
 
         .drill-box {
-            background: #f9f9f9;
-            border-left: 4px solid #000;
-            padding: 20px;
-            border-radius: 0 8px 8px 0;
-            margin-top: 20px;
+            background: #f9f9f9; border-left: 4px solid #000;
+            padding: 20px; border-radius: 0 8px 8px 0; margin-top: 20px;
         }
         .drill-label { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; margin-bottom: 8px; display: block; letter-spacing: 1px; }
         .drill-text { font-size: 0.95rem; line-height: 1.5; font-weight: 600; color: #333; }
@@ -234,7 +222,7 @@
     <div class="app-header">
         <div class="header-row">
             <img src="https://images.tcdn.com.br/img/img_prod/1383259/1752863299_logo-header.svg" alt="Alliance" class="logo-img">
-            
+            <span class="header-title">Jiu Jitsu</span>
         </div>
         
         <div class="tabs-container">
@@ -272,8 +260,39 @@
         </div>
 
         <div id="grid-inter" class="grid-view hidden">
-            <div class="lesson-btn" onclick="alert('Em breve')">01<span>Inter</span></div>
+            <div class="lesson-btn" onclick="openLesson('i1')">01<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i2')">02<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i3')">03<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i4')">04<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i5')">05<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i6')">06<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i7')">07<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i8')">08<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i9')">09<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i10')">10<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i11')">11<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i12')">12<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i13')">13<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i14')">14<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i15')">15<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i16')">16<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i17')">17<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i18')">18<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i19')">19<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i20')">20<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i21')">21<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i22')">22<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i23')">23<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i24')">24<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i25')">25<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i26')">26<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i27')">27<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i28')">28<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i29')">29<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('i30')">30<span>Aula</span></div>
+            <div class="lesson-btn special" onclick="openLesson('i31')">🤼<span>Quedas</span></div>
         </div>
+
         <div id="grid-avancado" class="grid-view hidden">
             <div class="lesson-btn" onclick="alert('Em breve')">01<span>Adv</span></div>
         </div>
@@ -292,9 +311,7 @@
 
     <div id="detail-screen" class="detail-view">
         <div class="detail-header">
-            <button class="back-btn" onclick="closeLesson()">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            </button>
+            <button class="back-btn" onclick="closeLesson()">←</button>
             <div class="lesson-info">
                 <h2 id="detail-title">AULA 01</h2>
                 <p id="detail-subtitle">Descrição...</p>
@@ -304,28 +321,16 @@
     </div>
 
     <template id="content-l1">
-        <div class="tech-item">
-            <span class="tech-title-pt">1. Princípio da Alavanca</span>
-            <span class="tech-title-en">Principles of Leverage</span>
-            <img src="imagens/L1_1.jpg" class="tech-img" loading="lazy">
-        </div>
-        <div class="tech-item">
-            <span class="tech-title-pt">2. Gravata por Trás</span>
-            <span class="tech-title-en">Headlock Escape from the Back</span>
-            <img src="imagens/L1_2.jpg" class="tech-img" loading="lazy">
-        </div>
-        <div class="tech-item">
-            <span class="tech-title-pt">3. Gangorra + Levantada Técnica</span>
-            <span class="tech-title-en">Rocking and Technical Stand Up</span>
-            <img src="imagens/L1_3.jpg" class="tech-img" loading="lazy">
-        </div>
+        <div class="tech-item"><span class="tech-title-pt">1. Princípio da Alavanca</span><span class="tech-title-en">Principles of Leverage</span><img src="imagens/L1_1.jpg" class="tech-img" loading="lazy"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Gravata por Trás</span><span class="tech-title-en">Headlock Escape</span><img src="imagens/L1_2.jpg" class="tech-img" loading="lazy"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Gangorra + Levantada</span><span class="tech-title-en">Technical Stand Up</span><img src="imagens/L1_3.jpg" class="tech-img" loading="lazy"></div>
     </template>
 
     <template id="content-l2">
-        <div class="tech-item"><span class="tech-title-pt">1. Aquecimento: Rolamento + Fuga</span><span class="tech-title-en">Warm Up</span><img src="imagens/L2_1.jpg" class="tech-img"></div>
-        <div class="tech-item"><span class="tech-title-pt">2. Upa e Roda</span><span class="tech-title-en">Upa Escape</span><img src="imagens/L2_2.jpg" class="tech-img"></div>
-        <div class="tech-item"><span class="tech-title-pt">3. Postura de Guarda</span><span class="tech-title-en">Guard Posture</span><img src="imagens/L2_3.jpg" class="tech-img"></div>
-        <div class="tech-item"><span class="tech-title-pt">4. Estrangulamento Montado</span><span class="tech-title-en">Choke from Mount</span><img src="imagens/L2_4.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">1. Aquecimento: Rolamento + Fuga</span><img src="imagens/L2_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Upa e Roda</span><img src="imagens/L2_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Postura de Guarda</span><img src="imagens/L2_3.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">4. Estrangulamento Montado</span><img src="imagens/L2_4.jpg" class="tech-img"></div>
     </template>
 
     <template id="content-l3">
@@ -474,8 +479,193 @@
         <div class="drill-box"><span class="drill-label">DRILL DO DIA</span><div class="drill-text">Esgrima / Single leg / Joelho cruzado / Montada técnica / Estrangulamento</div></div>
     </template>
 
+    <template id="content-i1">
+        <div class="tech-item"><span class="tech-title-pt">1. Omoplata da Guarda Fechada</span><img src="imagens/Inter_L1_1.jpg" class="tech-img" loading="lazy"></div>
+    </template>
+
+    <template id="content-i2">
+        <div class="tech-item"><span class="tech-title-pt">1. Passagem Mão por Dentro (Joelho Cruzado)</span><img src="imagens/Inter_L2_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Variação para Montada (Joelho no Meio)</span><img src="imagens/Inter_L2_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Variação Passando para o Outro Lado</span><img src="imagens/Inter_L2_3.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i3">
+        <div class="tech-item"><span class="tech-title-pt">1. Reposição de Base Invertida</span><img src="imagens/Inter_L3_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Inversão Caindo no 100kg</span><img src="imagens/Inter_L3_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Passando para as Costas</span><img src="imagens/Inter_L3_3.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i4">
+        <div class="tech-item"><span class="tech-title-pt">1. Defesa da Emborcada</span><img src="imagens/Inter_L4_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Raspagem Mão na Gola (Baixo do Braço)</span><img src="imagens/Inter_L4_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Chave de Ombro Pé Cruzado</span><img src="imagens/Inter_L4_3.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i5">
+        <div class="tech-item"><span class="tech-title-pt">1. Passagem para as Costas de Joelho</span><img src="imagens/Inter_L5_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Relógio</span><img src="imagens/Inter_L5_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Pegada Costas Reposição 4 Apoios</span><img src="imagens/Inter_L5_3.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i6">
+        <div class="tech-item"><span class="tech-title-pt">1. Cruzar o Joelho (Guarda Aranha)</span><img src="imagens/Inter_L6_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Controle da Perna na Diagonal</span><img src="imagens/Inter_L6_2.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i7">
+        <div class="tech-item"><span class="tech-title-pt">1. Montada com Pé no Meio (do 100kg)</span><img src="imagens/Inter_L7_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Ataque Duplo e Mão de Vaca</span><img src="imagens/Inter_L7_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Armlock Perna Deitada</span><img src="imagens/Inter_L7_3.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">4. Triângulo (Quebra de Defesa)</span><img src="imagens/Inter_L7_4.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i8">
+        <div class="tech-item"><span class="tech-title-pt">1. Guarda Aranha Braço Enrolado (Balão)</span><img src="imagens/Inter_L8_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Raspagem Braço Enrolado no Bíceps</span><img src="imagens/Inter_L8_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Omoplata do Braço Enrolado</span><img src="imagens/Inter_L8_3.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i9">
+        <div class="tech-item"><span class="tech-title-pt">1. Estrangulamento de Beisebol</span><img src="imagens/Inter_L9_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Katagatame do 100kg</span><img src="imagens/Inter_L9_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Kimura do 100kg</span><img src="imagens/Inter_L9_3.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i10">
+        <div class="tech-item"><span class="tech-title-pt">1. Braço Cruzado Indo para as Costas</span><img src="imagens/Inter_L10_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Braço Cruzado Raspando</span><img src="imagens/Inter_L10_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Chave de Braço Cruzado (Axila)</span><img src="imagens/Inter_L10_3.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i11">
+        <div class="tech-item"><span class="tech-title-pt">1. Reposição Meia Guarda com Gancho</span><img src="imagens/Inter_L11_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Variação para Raspagem</span><img src="imagens/Inter_L11_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Variação para as Costas</span><img src="imagens/Inter_L11_3.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i12">
+        <div class="tech-item"><span class="tech-title-pt">1. Passagem Mão na Perna e Por Dentro</span><img src="imagens/Inter_L12_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Variação Joelho Por Dentro</span><img src="imagens/Inter_L12_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Variação Emborcando</span><img src="imagens/Inter_L12_3.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i13">
+        <div class="tech-item"><span class="tech-title-pt">1. Raspagem de Gancho</span><img src="imagens/Inter_L13_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Variação com Perna em Pé</span><img src="imagens/Inter_L13_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Levantada Técnica</span><img src="imagens/Inter_L13_3.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i14">
+        <div class="tech-item"><span class="tech-title-pt">1. Upa + Saída de Cotovelo</span><img src="imagens/Inter_L14_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Saída de Montada Técnica</span><img src="imagens/Inter_L14_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Saída da Montada Alta</span><img src="imagens/Inter_L14_3.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i15">
+        <div class="tech-item"><span class="tech-title-pt">1. Chave de Braço Quebrando Postura</span><img src="imagens/Inter_L15_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Triângulo</span><img src="imagens/Inter_L15_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Armlock de dentro do Triângulo</span><img src="imagens/Inter_L15_3.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i16">
+        <div class="tech-item"><span class="tech-title-pt">1. Saída das Costas com Meia Guarda</span><img src="imagens/Inter_L16_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Saída Costas por Baixo da Axila</span><img src="imagens/Inter_L16_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Saída Costas do 4 Apoios</span><img src="imagens/Inter_L16_3.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i17">
+        <div class="tech-item"><span class="tech-title-pt">1. Passagem Toureando Diagonal</span><img src="imagens/Inter_L17_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Variação Cabeça por Baixo</span><img src="imagens/Inter_L17_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Pegando as Costas</span><img src="imagens/Inter_L17_3.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i18">
+        <div class="tech-item"><span class="tech-title-pt">1. Braço Cruzado e Pegando Costas</span><img src="imagens/Inter_L18_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Canela no Bíceps e Omoplata</span><img src="imagens/Inter_L18_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Triângulo de Guarda Aranha</span><img src="imagens/Inter_L18_3.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i19">
+        <div class="tech-item"><span class="tech-title-pt">1. Estrangulamento Brabo Joelho Barriga</span><img src="imagens/Inter_L19_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Estrangulamento Brabo com Braço</span><img src="imagens/Inter_L19_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Estrangulamento de Beisebol</span><img src="imagens/Inter_L19_3.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i20">
+        <div class="tech-item"><span class="tech-title-pt">1. Kimura Norte Sul</span><img src="imagens/Inter_L20_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Montada Perna em Pé e Gola</span><img src="imagens/Inter_L20_2.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i21">
+        <div class="tech-item"><span class="tech-title-pt">1. Guarda Trancada (Balão)</span><img src="imagens/Inter_L21_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Guarda Trancada (Raspagem Trás)</span><img src="imagens/Inter_L21_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Guarda Trancada (Saindo por Baixo)</span><img src="imagens/Inter_L21_3.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i22">
+        <div class="tech-item"><span class="tech-title-pt">1. Passagem Meia (Canela Coxa)</span><img src="imagens/Inter_L22_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Passagem Meia (Pé na Coxa)</span><img src="imagens/Inter_L22_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Mão na Gola e Corpo Estendido</span><img src="imagens/Inter_L22_3.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i23">
+        <div class="tech-item"><span class="tech-title-pt">1. Triângulo do 100kg</span><img src="imagens/Inter_L23_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Chave de Braço Joelhos Unidos</span><img src="imagens/Inter_L23_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Variação para Montada</span><img src="imagens/Inter_L23_3.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i24">
+        <div class="tech-item"><span class="tech-title-pt">1. Passagem Canela no Bíceps</span><img src="imagens/Inter_L24_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Domínio Tornozelo e Mão na Faixa</span><img src="imagens/Inter_L24_2.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i25">
+        <div class="tech-item"><span class="tech-title-pt">1. Superman da Montada</span><img src="imagens/Inter_L25_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Omoplata com Cintura Abraçada</span><img src="imagens/Inter_L25_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Empurrão na Axila e Armlock</span><img src="imagens/Inter_L25_3.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i26">
+        <div class="tech-item"><span class="tech-title-pt">1. Defesa de Triângulo na Postura</span><img src="imagens/Inter_L26_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Defesa de Triângulo Ajustado</span><img src="imagens/Inter_L26_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Defesa Omoplata Pulando 100kg</span><img src="imagens/Inter_L26_3.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i27">
+        <div class="tech-item"><span class="tech-title-pt">1. Esgrima da Meia (Mão no Pé)</span><img src="imagens/Inter_L27_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Variação Raspando Outro Lado</span><img src="imagens/Inter_L27_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Variação com Lapela</span><img src="imagens/Inter_L27_3.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i28">
+        <div class="tech-item"><span class="tech-title-pt">1. De La Riva com Balão</span><img src="imagens/Inter_L28_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Tesourada De La Riva</span><img src="imagens/Inter_L28_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Single Leg de La Riva</span><img src="imagens/Inter_L28_3.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i29">
+        <div class="tech-item"><span class="tech-title-pt">1. Passagem de Gancho (Perna Oposta)</span><img src="imagens/Inter_L29_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Perna em Pé e Joelho Cruzado</span><img src="imagens/Inter_L29_2.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i30">
+        <div class="tech-item"><span class="tech-title-pt">1. Pegada Costas (Inversão 4 Apoios)</span><img src="imagens/Inter_L30_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Estrangulamento Gola Perna Agarrada</span><img src="imagens/Inter_L30_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Variação Ataque Braço</span><img src="imagens/Inter_L30_3.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-i31">
+        <div class="tech-item"><span class="tech-title-pt">1. Double Leg</span><img src="imagens/Inter_Q_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Ouchi Gari</span><img src="imagens/Inter_Q_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Kouchi Gari</span><img src="imagens/Inter_Q_3.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">4. Osoto Gari</span><img src="imagens/Inter_Q_4.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">5. Tai Otoshi</span><img src="imagens/Inter_Q_5.jpg" class="tech-img"></div>
+    </template>
+
     <script>
+        // TÍTULOS DAS AULAS (DATABASE)
         const lessonData = {
+            // INICIANTE
             'l1': {t: 'AULA 01', s: 'Alavanca / Gravata / Gangorra'},
             'l2': {t: 'AULA 02', s: 'Fuga / Upa / Montada'},
             'l3': {t: 'AULA 03', s: 'Sprawl / Raspagens'},
@@ -495,7 +685,40 @@
             'l17': {t: 'AULA 17', s: 'Relógio / Rolo'},
             'l18': {t: 'AULA 18', s: 'Passagem / Arm-lock'},
             'l19': {t: 'AULA 19', s: 'Ippon Seoi / Ezequiel'},
-            'l20': {t: 'AULA 20', s: 'Esgrima / Montada'}
+            'l20': {t: 'AULA 20', s: 'Esgrima / Montada'},
+
+            // INTERMEDIÁRIO
+            'i1': {t: 'AULA 01', s: 'Guarda Fechada'},
+            'i2': {t: 'AULA 02', s: 'Passagem de Guarda'},
+            'i3': {t: 'AULA 03', s: 'Saída de Baixo'},
+            'i4': {t: 'AULA 04', s: 'Guarda Aberta'},
+            'i5': {t: 'AULA 05', s: 'Ataque nas Costas'},
+            'i6': {t: 'AULA 06', s: 'Passagem de Guarda'},
+            'i7': {t: 'AULA 07', s: 'Ataque da Montada'},
+            'i8': {t: 'AULA 08', s: 'Guarda Aberta'},
+            'i9': {t: 'AULA 09', s: 'Ataque Lateral'},
+            'i10': {t: 'AULA 10', s: 'Guarda Fechada'},
+            'i11': {t: 'AULA 11', s: 'Meia Guarda'},
+            'i12': {t: 'AULA 12', s: 'Passagem de Guarda'},
+            'i13': {t: 'AULA 13', s: 'Guarda Aberta'},
+            'i14': {t: 'AULA 14', s: 'Saída de Baixo'},
+            'i15': {t: 'AULA 15', s: 'Guarda Fechada'},
+            'i16': {t: 'AULA 16', s: 'Saída de Baixo'},
+            'i17': {t: 'AULA 17', s: 'Passagem de Guarda'},
+            'i18': {t: 'AULA 18', s: 'Guarda Aberta'},
+            'i19': {t: 'AULA 19', s: 'Joelho na Barriga'},
+            'i20': {t: 'AULA 20', s: 'Ataque Lateral'},
+            'i21': {t: 'AULA 21', s: 'Guarda Fechada'},
+            'i22': {t: 'AULA 22', s: 'Meia Guarda'},
+            'i23': {t: 'AULA 23', s: 'Ataque Lateral'},
+            'i24': {t: 'AULA 24', s: 'Passagem de Guarda'},
+            'i25': {t: 'AULA 25', s: 'Montada'},
+            'i26': {t: 'AULA 26', s: 'Defesa de Ataques'},
+            'i27': {t: 'AULA 27', s: 'Meia Guarda'},
+            'i28': {t: 'AULA 28', s: 'Guarda Aberta'},
+            'i29': {t: 'AULA 29', s: 'Passagem de Guarda'},
+            'i30': {t: 'AULA 30', s: 'Costas'},
+            'i31': {t: 'MÓDULO QUEDAS', s: 'Judô e Wrestling'}
         };
 
         // SWIPE
@@ -539,9 +762,24 @@
 
         function openLesson(id) {
             const template = document.getElementById('content-' + id);
-            if(template && lessonData[id]) {
+            
+            if(lessonData[id]) {
                 document.getElementById('detail-title').innerText = lessonData[id].t;
                 document.getElementById('detail-subtitle').innerText = lessonData[id].s;
+                
+                const container = document.getElementById('detail-container');
+                container.innerHTML = "";
+                
+                if(template) {
+                    container.appendChild(template.content.cloneNode(true));
+                } else {
+                    container.innerHTML = "<p style='text-align:center;color:#999;margin-top:50px'>Conteúdo em desenvolvimento.</p>";
+                }
+                document.getElementById('detail-screen').classList.add('active');
+            } 
+            else if (template) {
+                document.getElementById('detail-title').innerText = "AULA " + id.toUpperCase();
+                document.getElementById('detail-subtitle').innerText = "Técnicas";
                 const container = document.getElementById('detail-container');
                 container.innerHTML = "";
                 container.appendChild(template.content.cloneNode(true));
