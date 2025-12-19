@@ -1,37 +1,29 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    
-    <meta name="robots" content="noindex, nofollow">
-    
-    <meta name="description" content="Guia Metodológico Oficial Alliance Jiu Jitsu. Acesso restrito para professores.">
-    
-    <meta property="og:title" content="Alliance JJ - Área Técnica">
-    <meta property="og:description" content="Guia de aulas e metodologia oficial.">
-    <meta property="og:image" content="https://sitesbr.github.io/bjj-method/imagens/capa-preview.jpg">
-    <meta property="og:url" content="https://sitesbr.github.io/bjj-method/">
-    
-    <meta name="theme-color" content="#ffffff">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Alliance - Área do Professor</title>
+    <meta name="robots" content="noindex, nofollow">
+    <title>Alliance Professor App</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <meta property="og:image" content="https://sitesbr.github.io/bjj-method/imagens/capa-preview.jpg">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            /* TEMA CLEAN OFICIAL */
             --bg-body: #ffffff;
-            --text-main: #191919;
-            --text-sec: #666666;
-            --border-color: #e5e5e5;
+            --text-main: #111111;
+            --gray-light: #f4f4f4;
+            --gray-border: #e0e0e0;
+            --accent: #000000;
             --footer-bg: #191919;
-            --drill-bg: #f9f9f9;
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -40,658 +32,526 @@
             margin: 0;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
+            height: 100vh;
+            overflow: hidden;
         }
 
-        /* --- CABEÇALHO --- */
-        header {
-            background-color: #ffffff;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 25px 20px;
-            border-bottom: 1px solid var(--border-color);
-            text-align: center;
-            transition: box-shadow 0.3s ease;
-        }
-        
-        /* Sombra suave ao rolar */
-        header.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
-
-        .logo-header {
-            max-width: 160px;
-            height: auto;
-            margin-bottom: 10px;
-        }
-
-        .role-badge {
-            display: block;
-            font-size: 0.7rem;
-            color: var(--text-sec);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        .module-selector {
-            width: 100%;
-            background-color: #fff;
-            color: var(--text-main);
-            border: 1px solid #ccc;
-            padding: 14px;
-            border-radius: 4px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 600;
-            outline: none;
-            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-            background-repeat: no-repeat;
-            background-position: right .7em top 50%;
-            background-size: .65em auto;
-            appearance: none;
-        }
-
-        /* --- BUSCA --- */
-        .search-container { padding: 15px 20px; background: #fff; }
-        .search-input {
-            width: 100%; padding: 12px 15px; border-radius: 4px;
-            background: #f2f2f2; border: 1px solid transparent;
-            color: #333; font-size: 1rem; transition: all 0.3s;
-        }
-        .search-input:focus { border-color: #ccc; background: #fff; outline: none; }
-
-        /* --- LISTA DE AULAS --- */
-        .main-content { flex: 1; padding: 10px 0; }
-        .module-content { display: none; animation: fadeIn 0.4s ease; }
-        .module-content.active { display: block; }
-
-        /* CARD DA LIÇÃO (COM EFEITO POP-UP) */
-        .lesson-card {
+        /* --- HEADER --- */
+        .app-header {
             background: #fff;
-            border-bottom: 1px solid var(--border-color);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            position: relative;
-            margin: 0;
+            padding: 15px 20px 0 20px;
+            z-index: 100;
+            flex-shrink: 0;
+            border-bottom: 1px solid transparent; /* Removi a borda para ficar mais clean */
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03); /* Sombra muito suave */
         }
 
-        /* O Efeito Mágico: Quando Aberto */
-        .lesson-card.open {
-            margin: 20px 15px; /* Cria espaço ao redor */
-            border: 1px solid transparent; /* Remove borda padrão */
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.12); /* Sombra difusa elegante */
-            transform: scale(1.02); /* Leve zoom */
-            z-index: 10;
-        }
-
-        .lesson-header {
-            padding: 22px 20px;
+        .header-row {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start; /* Alinha tudo à esquerda */
             align-items: center;
-            cursor: pointer;
-            background: #fff;
-            border-radius: inherit; /* Segue o arredondamento do pai */
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .logo-img { 
+            height: 24px; /* Tamanho ideal discreto */
+            width: auto; 
         }
         
-        .lesson-card.open .lesson-header {
-            border-bottom: 1px solid #f0f0f0;
+        .header-title {
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
         }
 
-        .lesson-title { 
-            font-weight: 800; font-size: 1rem; 
-            text-transform: uppercase; color: #000; 
-            display: flex; flex-direction: column; 
+        /* --- ABAS (Scroll Horizontal) --- */
+        .tabs-container {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 15px; /* Mais espaço abaixo das abas */
+            -ms-overflow-style: none; scrollbar-width: none;
         }
-        .lesson-subtitle { 
-            font-size: 0.75rem; font-weight: 500; 
-            color: #777; margin-top: 5px; 
-            text-transform: none; letter-spacing: 0.5px;
+        .tabs-container::-webkit-scrollbar { display: none; }
+
+        .tab-btn {
+            background: var(--gray-light);
+            color: #777;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-btn.active {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
-        .icon-expand { font-size: 0.8rem; color: #333; transition: transform 0.3s; }
-        .lesson-card.open .icon-expand { transform: rotate(180deg); }
+        /* --- VIEWPORT (Área de Rolagem) --- */
+        .viewport {
+            flex: 1;
+            overflow-y: auto;
+            padding: 25px 20px 40px 20px; /* Aumentei o topo para 25px (Respiro) */
+            position: relative;
+            
+            /* CÓDIGO PARA MATAR A BARRA DE ROLAGEM CINZA */
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;  /* IE 10+ */
+        }
+        .viewport::-webkit-scrollbar { 
+            width: 0px;
+            background: transparent; /* Chrome/Safari/Webkit */
+            display: none;
+        }
 
-        /* CORPO DA LIÇÃO */
-        .lesson-body { 
-            display: none; 
-            padding: 0 20px 20px 20px;
+        /* --- GRID --- */
+        .grid-view {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 12px; /* Espaço entre botões */
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .lesson-btn {
+            aspect-ratio: 1;
             background: #fff;
-            border-bottom-left-radius: 8px;
-            border-bottom-right-radius: 8px;
+            border: 1px solid var(--gray-border);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--text-main);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            transition: transform 0.1s;
         }
-        .lesson-card.open .lesson-body { display: block; animation: slideDown 0.4s ease; }
-
-        .tech-block { padding: 25px 0; border-bottom: 1px dashed #eee; }
-        .tech-block:last-of-type { border-bottom: none; }
-
-        .tech-name-pt { display: block; font-size: 1rem; font-weight: 700; color: #000; margin-bottom: 4px; }
-        .tech-name-en { display: block; font-size: 0.85rem; font-weight: 400; color: #888; font-style: italic; margin-bottom: 15px; }
-
-        /* IMAGENS */
-        .tech-img {
-            width: 100%; height: auto; border-radius: 6px; display: block;
-            background-color: #f4f4f4; border: 1px solid #eee;
-            min-height: 150px; object-fit: cover;
+        
+        .lesson-btn:active {
+            transform: scale(0.92);
+            background: #f5f5f5;
+            border-color: #000;
         }
-        .tech-img:after {
-            content: "📷 Carregando imagem...";
-            display: flex; justify-content: center; align-items: center;
-            height: 100%; color: #999; font-size: 0.8rem;
+        
+        .lesson-btn span {
+            font-size: 0.55rem;
+            font-weight: 600;
+            color: #999;
+            margin-top: 2px;
+            text-transform: uppercase;
         }
 
-        /* DRILL BOX */
-        .drill-card {
-            background: var(--drill-bg);
-            margin-top: 20px;
-            padding: 20px;
-            border: 1px solid #000; /* Borda preta fina estilo Alliance */
-            box-shadow: 3px 3px 0 rgba(0,0,0,0.05);
-        }
-        .drill-title {
-            font-size: 0.75rem; text-transform: uppercase; font-weight: 900;
-            color: #000; margin-bottom: 10px; letter-spacing: 1px;
-            border-bottom: 2px solid #000; display: inline-block; padding-bottom: 3px;
-        }
-        .drill-content-pt { font-size: 0.9rem; color: #333; font-weight: 600; margin-bottom: 5px; line-height: 1.4; }
-        .drill-content-en { font-size: 0.8rem; color: #777; font-style: italic; line-height: 1.3; }
-
-        /* --- RODAPÉ --- */
-        footer {
-            background-color: var(--footer-bg);
-            padding: 50px 20px;
-            text-align: center;
+        /* --- RODAPÉ OFICIAL --- */
+        .app-footer {
             margin-top: 40px;
+            padding: 30px 20px;
+            background-color: var(--footer-bg);
+            border-radius: 12px;
+            text-align: center;
         }
-        .logo-footer { width: 100px; opacity: 0.8; margin-bottom: 20px; }
-        .footer-text { color: #555; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
-        .footer-sub { color: #444; font-size: 0.7rem; }
+        
+        .footer-logo { width: 60px; opacity: 0.8; margin-bottom: 10px; }
+        .footer-text { 
+            color: #666; 
+            font-size: 0.65rem; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            letter-spacing: 1.5px; 
+        }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        /* --- TELA DE DETALHE --- */
+        .detail-view {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: #fff;
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .detail-view.active { transform: translateX(0); }
+
+        .detail-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--gray-border);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #fff;
+        }
+
+        .back-btn {
+            background: none; border: none; font-size: 1.5rem; 
+            padding: 0 10px 0 0; color: #000; cursor: pointer;
+        }
+
+        .lesson-info h2 { margin: 0; font-size: 1rem; font-weight: 900; text-transform: uppercase; }
+        .lesson-info p { margin: 2px 0 0; font-size: 0.75rem; color: #666; }
+
+        .detail-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            padding-bottom: 60px; /* Espaço extra final */
+        }
+
+        /* CONTEÚDO DA AULA */
+        .tech-item { margin-bottom: 40px; }
+        .tech-title-pt { font-size: 1.1rem; font-weight: 800; display: block; margin-bottom: 5px; }
+        .tech-title-en { font-size: 0.85rem; color: #888; font-style: italic; display: block; margin-bottom: 15px; }
+        
+        .tech-img {
+            width: 100%; height: auto; border-radius: 10px;
+            background: #f4f4f4; min-height: 200px; object-fit: cover;
+            border: 1px solid #eee;
+        }
+
+        .drill-box {
+            background: #f9f9f9;
+            border-left: 4px solid #000;
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 20px;
+        }
+        .drill-label { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; margin-bottom: 8px; display: block; letter-spacing: 1px; }
+        .drill-text { font-size: 0.95rem; line-height: 1.5; font-weight: 600; color: #333; }
+
+        .hidden { display: none !important; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <header id="mainHeader">
-        <img src="https://images.tcdn.com.br/img/img_prod/1383259/1752863299_logo-header.svg" alt="Alliance Logo" class="logo-header">
-        <span class="role-badge">Área Técnica</span>
-        
-        <select class="module-selector" id="moduleSelect" onchange="changeModule()">
-            <option value="mod-iniciante">Módulo 1: Iniciante (Completo)</option>
-            <option value="mod-intermediario">Módulo 2: Intermediário</option>
-            <option value="mod-avancado">Módulo 3: Avançado</option>
-            <option value="mod-nogi">Módulo: No-Gi</option>
-            <option value="mod-feminino">Módulo: Feminino</option>
-            <option value="mod-kids">Módulo: Kids</option>
-        </select>
-    </header>
-
-    <div class="search-container">
-        <input type="text" class="search-input" id="search" placeholder="Buscar técnica, aula ou drill..." onkeyup="filterContent()">
-    </div>
-
-    <div class="main-content">
-        
-        <div id="mod-iniciante" class="module-content active">
+    <div class="app-header">
+        <div class="header-row">
+            <img src="https://images.tcdn.com.br/img/img_prod/1383259/1752863299_logo-header.svg" alt="Alliance" class="logo-img">
             
-            <div class="lesson-card">
-                <div class="lesson-header" onclick="toggle(this)">
-                    <div class="lesson-title">Lição 01 <span class="lesson-subtitle">Alavanca / Gravata / Gangorra</span></div><div class="icon-expand">▼</div>
-                </div>
-                <div class="lesson-body">
-                    <div class="tech-block"><span class="tech-name-pt">1. Princípio da Alavanca</span><span class="tech-name-en">Principles of Leverage</span><img src="imagens/L1_1.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">2. Gravata por Trás</span><span class="tech-name-en">Headlock Escape from the Back</span><img src="imagens/L1_2.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">3. Gangorra + Levantada Técnica</span><span class="tech-name-en">Rocking and Technical Stand Up</span><img src="imagens/L1_3.jpg" class="tech-img" loading="lazy"></div>
-                </div>
-            </div>
-
-            <div class="lesson-card">
-                <div class="lesson-header" onclick="toggle(this)">
-                    <div class="lesson-title">Lição 02 <span class="lesson-subtitle">Fuga / Upa / Montada</span></div><div class="icon-expand">▼</div>
-                </div>
-                <div class="lesson-body">
-                    <div class="tech-block"><span class="tech-name-pt">1. Aquecimento: Rolamento + Fuga</span><span class="tech-name-en">Warm Up: Backwards Roll + Hip Escape</span><img src="imagens/L2_1.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">2. Upa e Roda</span><span class="tech-name-en">Upa Escape</span><img src="imagens/L2_2.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">3. Postura de Guarda e Passagem</span><span class="tech-name-en">Guard Posture and Pass</span><img src="imagens/L2_3.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">4. Estrangulamento Montado</span><span class="tech-name-en">Choke from the Mount</span><img src="imagens/L2_4.jpg" class="tech-img" loading="lazy"></div>
-                </div>
-            </div>
-
-            <div class="lesson-card">
-                <div class="lesson-header" onclick="toggle(this)">
-                    <div class="lesson-title">Lição 03 <span class="lesson-subtitle">Sprawl / Raspagens</span></div><div class="icon-expand">▼</div>
-                </div>
-                <div class="lesson-body">
-                    <div class="tech-block"><span class="tech-name-pt">1. Rolamento de Frente</span><span class="tech-name-en">Forward Roll</span><img src="imagens/L3_1.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">2. Sprawl</span><span class="tech-name-en">Sprawl</span><img src="imagens/L3_2.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">3. Abraço por Cima (Trás)</span><span class="tech-name-en">Body Lock Over Arms</span><img src="imagens/L3_3.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">4. Saída de Cotovelo</span><span class="tech-name-en">Elbow Escape</span><img src="imagens/L3_4.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">5. Estrangulamento na Guarda</span><span class="tech-name-en">Choke from Guard</span><img src="imagens/L3_5.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">6. Raspagem Tesourada</span><span class="tech-name-en">Scissor Sweep</span><img src="imagens/L3_6.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">7. Raspagem (Calcanhares)</span><span class="tech-name-en">Sweep (Heels)</span><img src="imagens/L3_7.jpg" class="tech-img" loading="lazy"></div>
-                </div>
-            </div>
-
-            <div class="lesson-card">
-                <div class="lesson-header" onclick="toggle(this)">
-                    <div class="lesson-title">Lição 04 <span class="lesson-subtitle">Abraço / Kimura</span></div><div class="icon-expand">▼</div>
-                </div>
-                <div class="lesson-body">
-                    <div class="tech-block"><span class="tech-name-pt">1. Abraço por Cima dos Braços</span><span class="tech-name-en">Body Lock Over Arms</span><img src="imagens/L4_1.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">2. Reposição de Guarda</span><span class="tech-name-en">Recovering the Guard</span><img src="imagens/L4_2.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">3. Raspagem com Mão na Faixa</span><span class="tech-name-en">Sweep with Hand on Belt</span><img src="imagens/L4_3.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">4. Kimura</span><span class="tech-name-en">Kimura</span><img src="imagens/L4_4.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="drill-card">
-                        <div class="drill-title">Drill</div>
-                        <div class="drill-content-pt">Reposição / Raspagem tesourada / Saída de cotovelo / Kimura</div>
-                        <div class="drill-content-en">Recovering the guard / Scissor sweep / Elbow escape / Kimura</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lesson-card">
-                <div class="lesson-header" onclick="toggle(this)">
-                    <div class="lesson-title">Lição 05 <span class="lesson-subtitle">Koshi Guruma / Baiana</span></div><div class="icon-expand">▼</div>
-                </div>
-                <div class="lesson-body">
-                    <div class="tech-block"><span class="tech-name-pt">1. Koshi Guruma com Defesa</span><span class="tech-name-en">Koshi Guruma w/ Self Defense</span><img src="imagens/L5_1.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">2. Baiana (Double Leg)</span><span class="tech-name-en">Double Leg</span><img src="imagens/L5_2.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">3. Passagem Toreando</span><span class="tech-name-en">Toreando Pass</span><img src="imagens/L5_3.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">4. Kimura do 100kg</span><span class="tech-name-en">Kimura from Side Control</span><img src="imagens/L5_4.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="drill-card">
-                        <div class="drill-title">Drill</div>
-                        <div class="drill-content-pt">Baiana / Postura em pé / Passagem toreando / Reposição de guarda / Raspagem (calcanhar) / Arm-lock</div>
-                        <div class="drill-content-en">Double leg / Standing up / Toreando pass / Recovering the guard / Sweep (heel) / Arm-lock</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lesson-card">
-                <div class="lesson-header" onclick="toggle(this)">
-                    <div class="lesson-title">Lição 06 <span class="lesson-subtitle">Gravata / Americana</span></div><div class="icon-expand">▼</div>
-                </div>
-                <div class="lesson-body">
-                    <div class="tech-block"><span class="tech-name-pt">1. Gravata por Trás</span><span class="tech-name-en">Headlock Backwards</span><img src="imagens/L6_1.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">2. Virada de 4 Apoios</span><span class="tech-name-en">Turtle Turn</span><img src="imagens/L6_2.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">3. Americana</span><span class="tech-name-en">Americana</span><img src="imagens/L6_3.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">4. Chave de Braço Girando</span><span class="tech-name-en">Arm-lock Turning</span><img src="imagens/L6_4.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="drill-card">
-                        <div class="drill-title">Drill</div>
-                        <div class="drill-content-pt">Raspagem mão na faixa / Upa e roda / Passagem emborcada / Virada de 4 / Americana</div>
-                        <div class="drill-content-en">Sweep (belt) / Upa escape / Stack pass / Turtle turn / Americana</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lesson-card">
-                <div class="lesson-header" onclick="toggle(this)">
-                    <div class="lesson-title">Lição 07 <span class="lesson-subtitle">Ataque Duplo</span></div><div class="icon-expand">▼</div>
-                </div>
-                <div class="lesson-body">
-                    <div class="tech-block"><span class="tech-name-pt">1. Defesa Gravata com Soco</span><span class="tech-name-en">Headlock Defense w/ Punch</span><img src="imagens/L7_1.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">2. Defesa Gravata Lateral</span><span class="tech-name-en">Headlock Side Defense</span><img src="imagens/L7_2.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">3. Montada com Arm-lock (Duplo)</span><span class="tech-name-en">Mount w/ Armbar (Double)</span><img src="imagens/L7_3.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">4. Montada com Estrangulamento (Duplo)</span><span class="tech-name-en">Mount w/ Choke (Double)</span><img src="imagens/L7_4.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="drill-card">
-                        <div class="drill-title">Drill</div>
-                        <div class="drill-content-pt">Upa e roda / Raspagem calcanhares / Montada / Pegada costas / Mata Leão</div>
-                        <div class="drill-content-en">Upa escape / Sweep (heels) / Mount / Back attack / Rear naked choke</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lesson-card">
-                <div class="lesson-header" onclick="toggle(this)">
-                    <div class="lesson-title">Lição 08 <span class="lesson-subtitle">Guarda Aberta / Balão</span></div><div class="icon-expand">▼</div>
-                </div>
-                <div class="lesson-body">
-                    <div class="tech-block"><span class="tech-name-pt">1. Educativo Pé na Virilha</span><span class="tech-name-en">Set up Open Guard</span><img src="imagens/L8_1.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">2. Raspagem Pé na Virilha (Gancho)</span><span class="tech-name-en">Sweep Foot on Hip</span><img src="imagens/L8_2.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">3. Balão</span><span class="tech-name-en">Overhead Sweep</span><img src="imagens/L8_3.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">4. Arm-lock Invertido</span><span class="tech-name-en">Inverted Arm-lock</span><img src="imagens/L8_4.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="drill-card">
-                        <div class="drill-title">Drill</div>
-                        <div class="drill-content-pt">Raspagem gancho / Passagem toreando / Reposição de guarda / Balão / Arm-lock invertido</div>
-                        <div class="drill-content-en">Hook sweep / Toreando pass / Guard recovery / Overhead sweep / Inverted arm-lock</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lesson-card">
-                <div class="lesson-header" onclick="toggle(this)">
-                    <div class="lesson-title">Lição 09 <span class="lesson-subtitle">Guilhotina / Pêndulo</span></div><div class="icon-expand">▼</div>
-                </div>
-                <div class="lesson-body">
-                    <div class="tech-block"><span class="tech-name-pt">1. Guilhotina</span><span class="tech-name-en">Guillotine</span><img src="imagens/L9_1.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">2. Guilhotina Puxando pra Guarda</span><span class="tech-name-en">Pulling Guard w/ Guillotine</span><img src="imagens/L9_2.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">3. Raspagem Pêndulo</span><span class="tech-name-en">Pendulum Sweep</span><img src="imagens/L9_3.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">4. Arm-lock na Guarda</span><span class="tech-name-en">Arm-lock from Guard</span><img src="imagens/L9_4.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="drill-card">
-                        <div class="drill-title">Drill</div>
-                        <div class="drill-content-pt">Baiana / Raspagem pêndulo / Upa e roda / Arm-lock na guarda</div>
-                        <div class="drill-content-en">Double leg / Pendulum sweep / Upa escape / Arm-lock from guard</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lesson-card">
-                <div class="lesson-header" onclick="toggle(this)">
-                    <div class="lesson-title">Lição 10 <span class="lesson-subtitle">Montada Técnica</span></div><div class="icon-expand">▼</div>
-                </div>
-                <div class="lesson-body">
-                    <div class="tech-block"><span class="tech-name-pt">1. Empurrão no Peito (1 Mão)</span><span class="tech-name-en">Pushing Chest (1 Hand)</span><img src="imagens/L10_1.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">2. Empurrão no Peito (2 Mãos)</span><span class="tech-name-en">Pushing Chest (2 Hands)</span><img src="imagens/L10_2.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">3. Montada Técnica (Estrangulamento)</span><span class="tech-name-en">Tech Mount w/ Choke</span><img src="imagens/L10_3.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">4. Montada Técnica (Arm-lock)</span><span class="tech-name-en">Tech Mount w/ Arm-lock</span><img src="imagens/L10_4.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="drill-card">
-                        <div class="drill-title">Drill</div>
-                        <div class="drill-content-pt">Queda quadril / Guarda aberta / Toreando / Reposição / Passagem emborcando / Montada Técnica</div>
-                        <div class="drill-content-en">Hip throw / Open guard / Toreando / Recovery / Stack pass / Technical mount</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lesson-card">
-                <div class="lesson-header" onclick="toggle(this)">
-                    <div class="lesson-title">Lição 11 <span class="lesson-subtitle">Joelho na Barriga</span></div><div class="icon-expand">▼</div>
-                </div>
-                <div class="lesson-body">
-                    <div class="tech-block"><span class="tech-name-pt">1. Defesa de Guilhotina</span><span class="tech-name-en">Guillotine Defense</span><img src="imagens/L11_1.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">2. Joelho na Barriga</span><span class="tech-name-en">Knee on Belly</span><img src="imagens/L11_2.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">3. Joelho na Barriga + Estrangulamento</span><span class="tech-name-en">KOB + Choke</span><img src="imagens/L11_3.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">4. Joelho na Barriga + Arm-lock</span><span class="tech-name-en">KOB + Arm-lock</span><img src="imagens/L11_4.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="drill-card">
-                        <div class="drill-title">Drill</div>
-                        <div class="drill-content-pt">Raspagem pêndulo / Saída cotovelo / Toreando / Joelho na barriga / Estrangulamento</div>
-                        <div class="drill-content-en">Pendulum sweep / Elbow escape / Toreando / Knee on belly / Choke</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lesson-card">
-                <div class="lesson-header" onclick="toggle(this)">
-                    <div class="lesson-title">Lição 12 <span class="lesson-subtitle">Meia Guarda</span></div><div class="icon-expand">▼</div>
-                </div>
-                <div class="lesson-body">
-                    <div class="tech-block"><span class="tech-name-pt">1. Baiana de Joelhos</span><span class="tech-name-en">Double Leg (Knee)</span><img src="imagens/L12_1.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">2. Postura de Guarda (Mão na Manga)</span><span class="tech-name-en">Guard Posture (Sleeve)</span><img src="imagens/L12_2.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">3. Passagem para Meia Guarda</span><span class="tech-name-en">Half Guard Pass</span><img src="imagens/L12_3.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">4. Meia Guarda para Montada</span><span class="tech-name-en">Half Guard to Mount</span><img src="imagens/L12_4.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="drill-card">
-                        <div class="drill-title">Drill</div>
-                        <div class="drill-content-pt">Postura mão na manga / Passagem meia guarda / Meia para montada / Upa e roda</div>
-                        <div class="drill-content-en">Posture (sleeve) / Half guard pass / Half to mount / Upa escape</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lesson-card">
-                <div class="lesson-header" onclick="toggle(this)">
-                    <div class="lesson-title">Lição 13 <span class="lesson-subtitle">Saída Montada / Arm-lock</span></div><div class="icon-expand">▼</div>
-                </div>
-                <div class="lesson-body">
-                    <div class="tech-block"><span class="tech-name-pt">1. Abraço Pela Frente (Baixo)</span><span class="tech-name-en">Body Lock Under Arm</span><img src="imagens/L13_1.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">2. Saída Montada (Mãos na Faixa)</span><span class="tech-name-en">Mount Escape (Belt)</span><img src="imagens/L13_2.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">3. Estrangulamento (Braço Enrolado)</span><span class="tech-name-en">Choke (Arm Control)</span><img src="imagens/L13_3.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">4. Arm-lock na Guarda em Pé</span><span class="tech-name-en">Standing Guard Arm-lock</span><img src="imagens/L13_4.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="drill-card">
-                        <div class="drill-title">Drill</div>
-                        <div class="drill-content-pt">Saída montada (faixa) / Postura mão na manga / Passagem meia guarda / Montada / Arm-lock</div>
-                        <div class="drill-content-en">Mount escape / Posture (sleeve) / Half guard pass / Mount / Arm-lock</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lesson-card">
-                <div class="lesson-header" onclick="toggle(this)">
-                    <div class="lesson-title">Lição 14 <span class="lesson-subtitle">Costas / Estrangulamento</span></div><div class="icon-expand">▼</div>
-                </div>
-                <div class="lesson-body">
-                    <div class="tech-block"><span class="tech-name-pt">1. Sprawl</span><span class="tech-name-en">Sprawl</span><img src="imagens/L14_1.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">2. Seat Belt + Pegada Costas</span><span class="tech-name-en">Seat Belt + Back Take</span><img src="imagens/L14_2.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">3. Retenção das Costas</span><span class="tech-name-en">Retaining Back</span><img src="imagens/L14_3.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">4. Estrangulamento de Golas</span><span class="tech-name-en">Collar Choke</span><img src="imagens/L14_4.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="drill-card">
-                        <div class="drill-title">Drill</div>
-                        <div class="drill-content-pt">Passagem emborcando / Virada 4 apoios / Sprawl / Pegada costas / Estrangulamento</div>
-                        <div class="drill-content-en">Stack pass / Turtle turn / Sprawl / Back attack / Choke</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lesson-card">
-                <div class="lesson-header" onclick="toggle(this)">
-                    <div class="lesson-title">Lição 15 <span class="lesson-subtitle">Defesas de Chão</span></div><div class="icon-expand">▼</div>
-                </div>
-                <div class="lesson-body">
-                    <div class="tech-block"><span class="tech-name-pt">1. Saída Gravata Lateral (Chão)</span><span class="tech-name-en">Ground Headlock Escape</span><img src="imagens/L15_1.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">2. Saída Gravata (Gancho)</span><span class="tech-name-en">Headlock Escape (Hook)</span><img src="imagens/L15_2.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">3. Defesa de Pegada Costas</span><span class="tech-name-en">Back Attack Defense</span><img src="imagens/L15_3.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">4. Defesa Pegada Costas (Girando)</span><span class="tech-name-en">Back Defense (Turning)</span><img src="imagens/L15_4.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="drill-card">
-                        <div class="drill-title">Drill</div>
-                        <div class="drill-content-pt">Defesa costas / Meia guarda / Montada / Pegada costas</div>
-                        <div class="drill-content-en">Back defense / Half guard / Mount / Back attack</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lesson-card">
-                <div class="lesson-header" onclick="toggle(this)">
-                    <div class="lesson-title">Lição 16 <span class="lesson-subtitle">Single Leg / Triângulo</span></div><div class="icon-expand">▼</div>
-                </div>
-                <div class="lesson-body">
-                    <div class="tech-block"><span class="tech-name-pt">1. Single Leg</span><span class="tech-name-en">Single Leg</span><img src="imagens/L16_1.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">2. Reposição Guarda (4 Apoios)</span><span class="tech-name-en">Turtle Guard Recovery</span><img src="imagens/L16_2.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">3. Guarda Aberta / Triângulo</span><span class="tech-name-en">Open Guard / Triangle</span><img src="imagens/L16_3.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">4. Raspagem de Tripé</span><span class="tech-name-en">Tripod Sweep</span><img src="imagens/L16_4.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="drill-card">
-                        <div class="drill-title">Drill</div>
-                        <div class="drill-content-pt">Single leg / Sprawl / Reposição de 4 apoios / Triângulo</div>
-                        <div class="drill-content-en">Single leg / Sprawl / Guard recovery (turtle) / Triangle</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lesson-card">
-                <div class="lesson-header" onclick="toggle(this)">
-                    <div class="lesson-title">Lição 17 <span class="lesson-subtitle">Relógio / Rolo</span></div><div class="icon-expand">▼</div>
-                </div>
-                <div class="lesson-body">
-                    <div class="tech-block"><span class="tech-name-pt">1. Defesa de Jab</span><span class="tech-name-en">Jab Defense</span><img src="imagens/L17_1.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">2. Cinturada por Trás</span><span class="tech-name-en">Rear Body Lock</span><img src="imagens/L17_2.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">3. Estrangulamento Relógio</span><span class="tech-name-en">Clock Choke</span><img src="imagens/L17_3.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">4. Rolo de 4 Apoios</span><span class="tech-name-en">Turtle Roll</span><img src="imagens/L17_4.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="drill-card">
-                        <div class="drill-title">Drill</div>
-                        <div class="drill-content-pt">Defesa jab / Cinturada costas / Seat belt / Defesa costas / Montada / Arm-lock invertido</div>
-                        <div class="drill-content-en">Jab defense / Rear lock / Seat belt / Back defense / Mount / Inverted arm-lock</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lesson-card">
-                <div class="lesson-header" onclick="toggle(this)">
-                    <div class="lesson-title">Lição 18 <span class="lesson-subtitle">Passagem / Arm-lock</span></div><div class="icon-expand">▼</div>
-                </div>
-                <div class="lesson-body">
-                    <div class="tech-block"><span class="tech-name-pt">1. Varredura por Dentro</span><span class="tech-name-en">Inner Leg Sweep</span><img src="imagens/L18_1.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">2. Passagem Joelho por Dentro</span><span class="tech-name-en">Knee Inside Pass</span><img src="imagens/L18_2.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">3. Arm-lock (Braço Enrolado)</span><span class="tech-name-en">Arm-lock (Arm Control)</span><img src="imagens/L18_3.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">4. Estrangulamento (Braço Enrolado)</span><span class="tech-name-en">Choke (Arm Control)</span><img src="imagens/L18_4.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="drill-card">
-                        <div class="drill-title">Drill</div>
-                        <div class="drill-content-pt">Varredura / Passagem joelho dentro / Reposição / Arm-lock (braço enrolado)</div>
-                        <div class="drill-content-en">Leg sweep / Knee inside pass / Recovery / Arm-lock (arm control)</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lesson-card">
-                <div class="lesson-header" onclick="toggle(this)">
-                    <div class="lesson-title">Lição 19 <span class="lesson-subtitle">Ippon Seoi / Ezequiel</span></div><div class="icon-expand">▼</div>
-                </div>
-                <div class="lesson-body">
-                    <div class="tech-block"><span class="tech-name-pt">1. Ippon Seoi</span><span class="tech-name-en">Ippon Seoi</span><img src="imagens/L19_1.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">2. Raspagem de Gancho</span><span class="tech-name-en">Hook Sweep</span><img src="imagens/L19_2.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">3. Passagem Joelho Cruzado</span><span class="tech-name-en">Knee Slice Pass</span><img src="imagens/L19_3.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">4. Ezequiel da Montada</span><span class="tech-name-en">Ezequiel from Mount</span><img src="imagens/L19_4.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="drill-card">
-                        <div class="drill-title">Drill</div>
-                        <div class="drill-content-pt">Raspagem gancho / Joelho cruzado / Reposição / Arm-lock na guarda</div>
-                        <div class="drill-content-en">Hook sweep / Knee slice / Recovery / Arm-lock from guard</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lesson-card">
-                <div class="lesson-header" onclick="toggle(this)">
-                    <div class="lesson-title">Lição 20 <span class="lesson-subtitle">Esgrima / Montada</span></div><div class="icon-expand">▼</div>
-                </div>
-                <div class="lesson-body">
-                    <div class="tech-block"><span class="tech-name-pt">1. Esgrima (Underhook)</span><span class="tech-name-en">Standing Pummeling</span><img src="imagens/L20_1.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">2. Esgrima com Single Leg</span><span class="tech-name-en">Underhook w/ Single Leg</span><img src="imagens/L20_2.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">3. Passagem Cruzando Joelho</span><span class="tech-name-en">Knee Slice Pass</span><img src="imagens/L20_3.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="tech-block"><span class="tech-name-pt">4. Montada Técnica (Perna em Pé)</span><span class="tech-name-en">Tech Mount (Leg Up)</span><img src="imagens/L20_4.jpg" class="tech-img" loading="lazy"></div>
-                    <div class="drill-card">
-                        <div class="drill-title">Drill</div>
-                        <div class="drill-content-pt">Esgrima / Single leg / Joelho cruzado / Reposição / Montada técnica / Estrangulamento</div>
-                        <div class="drill-content-en">Underhook / Single leg / Knee slice / Recovery / Tech mount / Choke</div>
-                    </div>
-                </div>
-            </div>
-
         </div>
-
-        <div id="mod-intermediario" class="module-content">
-            <div class="lesson-card">
-                <div class="lesson-header" onclick="toggle(this)">
-                    <div class="lesson-title">Lição 01 <span class="lesson-subtitle">Guarda Aranha</span></div><div class="icon-expand">▼</div>
-                </div>
-                <div class="lesson-body">
-                    <div class="tech-block"><span class="tech-name-pt">1. Estourada de Pegada</span><img src="imagens/Inter_L1_1.jpg" class="tech-img"></div>
-                </div>
-            </div>
+        
+        <div class="tabs-container">
+            <button class="tab-btn active" onclick="switchTab('iniciante')">Iniciante</button>
+            <button class="tab-btn" onclick="switchTab('inter')">Intermed.</button>
+            <button class="tab-btn" onclick="switchTab('avancado')">Avançado</button>
+            <button class="tab-btn" onclick="switchTab('nogi')">No-Gi</button>
+            <button class="tab-btn" onclick="switchTab('kids')">Kids</button>
         </div>
-
-        <div id="mod-avancado" class="module-content">
-            <div class="lesson-card">
-                <div class="lesson-header" onclick="toggle(this)">
-                    <div class="lesson-title">Lição 01 <span class="lesson-subtitle">Berimbolo</span></div><div class="icon-expand">▼</div>
-                </div>
-                <div class="lesson-body">
-                    <div class="tech-block"><span class="tech-name-pt">1. Entrada De La Riva</span><img src="imagens/Adv_L1_1.jpg" class="tech-img"></div>
-                </div>
-            </div>
-        </div>
-
-        <div id="mod-nogi" class="module-content">
-            <div class="lesson-card">
-                <div class="lesson-header" onclick="toggle(this)">
-                    <div class="lesson-title">Lição 01 <span class="lesson-subtitle">Chaves de Pé</span></div><div class="icon-expand">▼</div>
-                </div>
-                <div class="lesson-body">
-                    <div class="tech-block"><span class="tech-name-pt">1. Chave de Pé Reta</span><img src="imagens/Nogi_L1_1.jpg" class="tech-img"></div>
-                </div>
-            </div>
-        </div>
-
-        <div id="mod-feminino" class="module-content">
-            <div class="lesson-card">
-                <div class="lesson-header" onclick="toggle(this)">
-                    <div class="lesson-title">Lição 01 <span class="lesson-subtitle">Defesa Pessoal</span></div><div class="icon-expand">▼</div>
-                </div>
-                <div class="lesson-body">
-                    <div class="tech-block"><span class="tech-name-pt">1. Defesa Pegada Cabelo</span><img src="imagens/Fem_L1_1.jpg" class="tech-img"></div>
-                </div>
-            </div>
-        </div>
-
-        <div id="mod-kids" class="module-content">
-            <div class="lesson-card">
-                <div class="lesson-header" onclick="toggle(this)">
-                    <div class="lesson-title">Lição 01 <span class="lesson-subtitle">Bullyproof</span></div><div class="icon-expand">▼</div>
-                </div>
-                <div class="lesson-body">
-                    <div class="tech-block"><span class="tech-name-pt">1. Base do Gorila</span><img src="imagens/Kids_L1_1.jpg" class="tech-img"></div>
-                </div>
-            </div>
-        </div>
-
     </div>
 
-    <footer>
-        <img src="https://allianceofficial.com/wp-content/themes/alliance/images/logo-footer.svg" alt="Alliance Footer" class="logo-footer">
-        <div class="footer-text">© 2025 Alliance Jiu Jitsu.</div>
-        <div class="footer-sub">Área do Professor - Guia Metodológico</div>
-    </footer>
+    <div class="viewport" id="mainViewport">
+        
+        <div id="grid-iniciante" class="grid-view">
+            <div class="lesson-btn" onclick="openLesson('l1')">01<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('l2')">02<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('l3')">03<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('l4')">04<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('l5')">05<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('l6')">06<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('l7')">07<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('l8')">08<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('l9')">09<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('l10')">10<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('l11')">11<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('l12')">12<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('l13')">13<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('l14')">14<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('l15')">15<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('l16')">16<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('l17')">17<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('l18')">18<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('l19')">19<span>Aula</span></div>
+            <div class="lesson-btn" onclick="openLesson('l20')">20<span>Aula</span></div>
+        </div>
+
+        <div id="grid-inter" class="grid-view hidden">
+            <div class="lesson-btn" onclick="alert('Em breve')">01<span>Inter</span></div>
+        </div>
+        <div id="grid-avancado" class="grid-view hidden">
+            <div class="lesson-btn" onclick="alert('Em breve')">01<span>Adv</span></div>
+        </div>
+        <div id="grid-nogi" class="grid-view hidden">
+            <div class="lesson-btn" onclick="alert('Em breve')">01<span>NoGi</span></div>
+        </div>
+        <div id="grid-kids" class="grid-view hidden">
+            <div class="lesson-btn" onclick="alert('Em breve')">01<span>Kids</span></div>
+        </div>
+
+        <div class="app-footer">
+            <img src="https://allianceofficial.com/wp-content/themes/alliance/images/logo-footer.svg" alt="Alliance" class="footer-logo">
+            <div class="footer-text">Área do Professor - Guia Metodológico</div>
+        </div>
+    </div>
+
+    <div id="detail-screen" class="detail-view">
+        <div class="detail-header">
+            <button class="back-btn" onclick="closeLesson()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            </button>
+            <div class="lesson-info">
+                <h2 id="detail-title">AULA 01</h2>
+                <p id="detail-subtitle">Descrição...</p>
+            </div>
+        </div>
+        <div class="detail-content" id="detail-container"></div>
+    </div>
+
+    <template id="content-l1">
+        <div class="tech-item">
+            <span class="tech-title-pt">1. Princípio da Alavanca</span>
+            <span class="tech-title-en">Principles of Leverage</span>
+            <img src="imagens/L1_1.jpg" class="tech-img" loading="lazy">
+        </div>
+        <div class="tech-item">
+            <span class="tech-title-pt">2. Gravata por Trás</span>
+            <span class="tech-title-en">Headlock Escape from the Back</span>
+            <img src="imagens/L1_2.jpg" class="tech-img" loading="lazy">
+        </div>
+        <div class="tech-item">
+            <span class="tech-title-pt">3. Gangorra + Levantada Técnica</span>
+            <span class="tech-title-en">Rocking and Technical Stand Up</span>
+            <img src="imagens/L1_3.jpg" class="tech-img" loading="lazy">
+        </div>
+    </template>
+
+    <template id="content-l2">
+        <div class="tech-item"><span class="tech-title-pt">1. Aquecimento: Rolamento + Fuga</span><span class="tech-title-en">Warm Up</span><img src="imagens/L2_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Upa e Roda</span><span class="tech-title-en">Upa Escape</span><img src="imagens/L2_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Postura de Guarda</span><span class="tech-title-en">Guard Posture</span><img src="imagens/L2_3.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">4. Estrangulamento Montado</span><span class="tech-title-en">Choke from Mount</span><img src="imagens/L2_4.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-l3">
+        <div class="tech-item"><span class="tech-title-pt">1. Rolamento de Frente</span><img src="imagens/L3_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Sprawl</span><img src="imagens/L3_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Abraço por Cima (Trás)</span><img src="imagens/L3_3.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">4. Saída de Cotovelo</span><img src="imagens/L3_4.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">5. Estrangulamento na Guarda</span><img src="imagens/L3_5.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">6. Raspagem Tesourada</span><img src="imagens/L3_6.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">7. Raspagem (Calcanhares)</span><img src="imagens/L3_7.jpg" class="tech-img"></div>
+    </template>
+
+    <template id="content-l4">
+        <div class="tech-item"><span class="tech-title-pt">1. Abraço por Cima dos Braços</span><img src="imagens/L4_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Reposição de Guarda</span><img src="imagens/L4_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Raspagem com Mão na Faixa</span><img src="imagens/L4_3.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">4. Kimura</span><img src="imagens/L4_4.jpg" class="tech-img"></div>
+        <div class="drill-box"><span class="drill-label">DRILL DO DIA</span><div class="drill-text">Reposição / Raspagem tesourada / Saída de cotovelo / Kimura</div></div>
+    </template>
+
+    <template id="content-l5">
+        <div class="tech-item"><span class="tech-title-pt">1. Koshi Guruma com Defesa</span><img src="imagens/L5_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Baiana (Double Leg)</span><img src="imagens/L5_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Passagem Toreando</span><img src="imagens/L5_3.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">4. Kimura do 100kg</span><img src="imagens/L5_4.jpg" class="tech-img"></div>
+        <div class="drill-box"><span class="drill-label">DRILL DO DIA</span><div class="drill-text">Baiana / Postura / Toreando / Reposição / Raspagem / Arm-lock</div></div>
+    </template>
+
+    <template id="content-l6">
+        <div class="tech-item"><span class="tech-title-pt">1. Gravata por Trás</span><img src="imagens/L6_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Virada de 4 Apoios</span><img src="imagens/L6_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Americana</span><img src="imagens/L6_3.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">4. Chave de Braço Girando</span><img src="imagens/L6_4.jpg" class="tech-img"></div>
+        <div class="drill-box"><span class="drill-label">DRILL DO DIA</span><div class="drill-text">Raspagem mão na faixa / Upa / Emborcada / Virada 4 / Americana</div></div>
+    </template>
+
+    <template id="content-l7">
+        <div class="tech-item"><span class="tech-title-pt">1. Defesa Gravata Soco</span><img src="imagens/L7_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Defesa Gravata Lateral</span><img src="imagens/L7_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Montada Arm-lock</span><img src="imagens/L7_3.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">4. Montada Estrangulamento</span><img src="imagens/L7_4.jpg" class="tech-img"></div>
+        <div class="drill-box"><span class="drill-label">DRILL DO DIA</span><div class="drill-text">Upa / Raspagem calcanhar / Montada / Pegada costas / Mata Leão</div></div>
+    </template>
+
+    <template id="content-l8">
+        <div class="tech-item"><span class="tech-title-pt">1. Educativo Pé na Virilha</span><img src="imagens/L8_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Raspagem Pé na Virilha</span><img src="imagens/L8_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Balão</span><img src="imagens/L8_3.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">4. Arm-lock Invertido</span><img src="imagens/L8_4.jpg" class="tech-img"></div>
+        <div class="drill-box"><span class="drill-label">DRILL DO DIA</span><div class="drill-text">Raspagem gancho / Toreando / Reposição / Balão / Arm-lock inv.</div></div>
+    </template>
+
+    <template id="content-l9">
+        <div class="tech-item"><span class="tech-title-pt">1. Guilhotina</span><img src="imagens/L9_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Guilhotina Puxando</span><img src="imagens/L9_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Raspagem Pêndulo</span><img src="imagens/L9_3.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">4. Arm-lock na Guarda</span><img src="imagens/L9_4.jpg" class="tech-img"></div>
+        <div class="drill-box"><span class="drill-label">DRILL DO DIA</span><div class="drill-text">Baiana / Raspagem pêndulo / Upa / Arm-lock na guarda</div></div>
+    </template>
+
+    <template id="content-l10">
+        <div class="tech-item"><span class="tech-title-pt">1. Empurrão (1 Mão)</span><img src="imagens/L10_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Empurrão (2 Mãos)</span><img src="imagens/L10_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Montada Técnica (Estrangulamento)</span><img src="imagens/L10_3.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">4. Montada Técnica (Arm-lock)</span><img src="imagens/L10_4.jpg" class="tech-img"></div>
+        <div class="drill-box"><span class="drill-label">DRILL DO DIA</span><div class="drill-text">Queda quadril / Guarda aberta / Toreando / Emborcando / Montada Téc.</div></div>
+    </template>
+
+    <template id="content-l11">
+        <div class="tech-item"><span class="tech-title-pt">1. Defesa Guilhotina</span><img src="imagens/L11_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Joelho na Barriga</span><img src="imagens/L11_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Joelho na Barriga + Estrangulamento</span><img src="imagens/L11_3.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">4. Joelho na Barriga + Arm-lock</span><img src="imagens/L11_4.jpg" class="tech-img"></div>
+        <div class="drill-box"><span class="drill-label">DRILL DO DIA</span><div class="drill-text">Pêndulo / Saída cotovelo / Toreando / Joelho na barriga / Estrangulamento</div></div>
+    </template>
+
+    <template id="content-l12">
+        <div class="tech-item"><span class="tech-title-pt">1. Baiana Joelho</span><img src="imagens/L12_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Postura (Mão na Manga)</span><img src="imagens/L12_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Passagem Meia Guarda</span><img src="imagens/L12_3.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">4. Meia para Montada</span><img src="imagens/L12_4.jpg" class="tech-img"></div>
+        <div class="drill-box"><span class="drill-label">DRILL DO DIA</span><div class="drill-text">Postura / Passagem meia / Meia para montada / Upa e roda</div></div>
+    </template>
+
+    <template id="content-l13">
+        <div class="tech-item"><span class="tech-title-pt">1. Abraço Pela Frente</span><img src="imagens/L13_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Saída Montada (Faixa)</span><img src="imagens/L13_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Estrangulamento (Braço)</span><img src="imagens/L13_3.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">4. Arm-lock Guarda em Pé</span><img src="imagens/L13_4.jpg" class="tech-img"></div>
+        <div class="drill-box"><span class="drill-label">DRILL DO DIA</span><div class="drill-text">Saída montada / Postura / Passagem meia / Montada / Arm-lock</div></div>
+    </template>
+
+    <template id="content-l14">
+        <div class="tech-item"><span class="tech-title-pt">1. Sprawl</span><img src="imagens/L14_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Seat Belt + Costas</span><img src="imagens/L14_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Retenção Costas</span><img src="imagens/L14_3.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">4. Estrangulamento Golas</span><img src="imagens/L14_4.jpg" class="tech-img"></div>
+        <div class="drill-box"><span class="drill-label">DRILL DO DIA</span><div class="drill-text">Emborcada / Virada 4 apoios / Sprawl / Pegada costas / Estrangulamento</div></div>
+    </template>
+
+    <template id="content-l15">
+        <div class="tech-item"><span class="tech-title-pt">1. Saída Gravata Lateral</span><img src="imagens/L15_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Saída Gravata (Gancho)</span><img src="imagens/L15_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Defesa de Pegada Costas</span><img src="imagens/L15_3.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">4. Defesa Costas (Girando)</span><img src="imagens/L15_4.jpg" class="tech-img"></div>
+        <div class="drill-box"><span class="drill-label">DRILL DO DIA</span><div class="drill-text">Defesa costas / Meia guarda / Montada / Pegada costas</div></div>
+    </template>
+
+    <template id="content-l16">
+        <div class="tech-item"><span class="tech-title-pt">1. Single Leg</span><img src="imagens/L16_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Reposição (4 Apoios)</span><img src="imagens/L16_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Guarda Aberta / Triângulo</span><img src="imagens/L16_3.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">4. Raspagem de Tripé</span><img src="imagens/L16_4.jpg" class="tech-img"></div>
+        <div class="drill-box"><span class="drill-label">DRILL DO DIA</span><div class="drill-text">Single leg / Sprawl / Reposição 4 apoios / Triângulo</div></div>
+    </template>
+
+    <template id="content-l17">
+        <div class="tech-item"><span class="tech-title-pt">1. Defesa de Jab</span><img src="imagens/L17_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Cinturada por Trás</span><img src="imagens/L17_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Relógio</span><img src="imagens/L17_3.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">4. Rolo de 4 Apoios</span><img src="imagens/L17_4.jpg" class="tech-img"></div>
+        <div class="drill-box"><span class="drill-label">DRILL DO DIA</span><div class="drill-text">Defesa jab / Cinturada / Seat belt / Montada / Arm-lock invertido</div></div>
+    </template>
+
+    <template id="content-l18">
+        <div class="tech-item"><span class="tech-title-pt">1. Varredura por Dentro</span><img src="imagens/L18_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Passagem Joelho Dentro</span><img src="imagens/L18_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Arm-lock (Braço)</span><img src="imagens/L18_3.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">4. Estrangulamento (Braço)</span><img src="imagens/L18_4.jpg" class="tech-img"></div>
+        <div class="drill-box"><span class="drill-label">DRILL DO DIA</span><div class="drill-text">Varredura / Passagem joelho / Reposição / Arm-lock</div></div>
+    </template>
+
+    <template id="content-l19">
+        <div class="tech-item"><span class="tech-title-pt">1. Ippon Seoi</span><img src="imagens/L19_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Raspagem de Gancho</span><img src="imagens/L19_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Passagem Joelho Cruzado</span><img src="imagens/L19_3.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">4. Ezequiel da Montada</span><img src="imagens/L19_4.jpg" class="tech-img"></div>
+        <div class="drill-box"><span class="drill-label">DRILL DO DIA</span><div class="drill-text">Raspagem gancho / Joelho cruzado / Reposição / Arm-lock guarda</div></div>
+    </template>
+
+    <template id="content-l20">
+        <div class="tech-item"><span class="tech-title-pt">1. Esgrima (Underhook)</span><img src="imagens/L20_1.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">2. Esgrima com Single Leg</span><img src="imagens/L20_2.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">3. Passagem Cruzando Joelho</span><img src="imagens/L20_3.jpg" class="tech-img"></div>
+        <div class="tech-item"><span class="tech-title-pt">4. Montada Técnica (Pé)</span><img src="imagens/L20_4.jpg" class="tech-img"></div>
+        <div class="drill-box"><span class="drill-label">DRILL DO DIA</span><div class="drill-text">Esgrima / Single leg / Joelho cruzado / Montada técnica / Estrangulamento</div></div>
+    </template>
 
     <script>
-        // Troca de Módulos
-        function changeModule() {
-            const select = document.getElementById('moduleSelect');
-            const selectedId = select.value;
-            
-            document.querySelectorAll('.module-content').forEach(m => m.classList.remove('active'));
-            document.getElementById(selectedId).classList.add('active');
-            
-            document.getElementById('search').value = '';
-            filterContent();
+        const lessonData = {
+            'l1': {t: 'AULA 01', s: 'Alavanca / Gravata / Gangorra'},
+            'l2': {t: 'AULA 02', s: 'Fuga / Upa / Montada'},
+            'l3': {t: 'AULA 03', s: 'Sprawl / Raspagens'},
+            'l4': {t: 'AULA 04', s: 'Abraço / Kimura'},
+            'l5': {t: 'AULA 05', s: 'Koshi Guruma / Baiana'},
+            'l6': {t: 'AULA 06', s: 'Gravata / Americana'},
+            'l7': {t: 'AULA 07', s: 'Ataque Duplo'},
+            'l8': {t: 'AULA 08', s: 'Guarda Aberta / Balão'},
+            'l9': {t: 'AULA 09', s: 'Guilhotina / Pêndulo'},
+            'l10': {t: 'AULA 10', s: 'Montada Técnica'},
+            'l11': {t: 'AULA 11', s: 'Joelho na Barriga'},
+            'l12': {t: 'AULA 12', s: 'Meia Guarda'},
+            'l13': {t: 'AULA 13', s: 'Saída Montada / Arm-lock'},
+            'l14': {t: 'AULA 14', s: 'Costas / Estrangulamento'},
+            'l15': {t: 'AULA 15', s: 'Defesas de Chão'},
+            'l16': {t: 'AULA 16', s: 'Single Leg / Triângulo'},
+            'l17': {t: 'AULA 17', s: 'Relógio / Rolo'},
+            'l18': {t: 'AULA 18', s: 'Passagem / Arm-lock'},
+            'l19': {t: 'AULA 19', s: 'Ippon Seoi / Ezequiel'},
+            'l20': {t: 'AULA 20', s: 'Esgrima / Montada'}
+        };
+
+        // SWIPE
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const modules = ['iniciante', 'inter', 'avancado', 'nogi', 'kids'];
+        let currentModuleIndex = 0;
+
+        const viewport = document.getElementById('mainViewport');
+
+        viewport.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+        viewport.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, {passive: true});
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 70 && currentModuleIndex < modules.length - 1) {
+                switchTab(modules[currentModuleIndex + 1]);
+            }
+            if (touchEndX > touchStartX + 70 && currentModuleIndex > 0) {
+                switchTab(modules[currentModuleIndex - 1]);
+            }
         }
 
-        // Lógica do Efeito Pop-up (Accordion)
-        function toggle(header) {
-            const card = header.parentElement;
-            
-            // Fecha outros abertos para focar no atual
-            const activeModule = document.querySelector('.module-content.active');
-            if(activeModule){
-                activeModule.querySelectorAll('.lesson-card').forEach(c => {
-                    if(c !== card) c.classList.remove('open');
-                });
+        function switchTab(tabId) {
+            currentModuleIndex = modules.indexOf(tabId);
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            const btn = document.querySelector(`.tab-btn[onclick*="${tabId}"]`) || document.querySelectorAll('.tab-btn')[currentModuleIndex];
+            if(btn) {
+                btn.classList.add('active');
+                btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
             }
-
-            // Alterna o estado do atual
-            card.classList.toggle('open');
-            
-            // Scroll suave para centralizar
-            if(card.classList.contains('open')){
-                setTimeout(() => {
-                    header.scrollIntoView({behavior:'smooth', block:'center'});
-                }, 300);
+            document.querySelectorAll('.grid-view').forEach(g => { g.classList.add('hidden'); });
+            const target = document.getElementById('grid-' + tabId);
+            if(target) {
+                target.classList.remove('hidden');
+                target.style.animation = 'slideIn 0.3s ease-out';
             }
         }
 
-        // Sistema de Busca
-        function filterContent() {
-            const term = document.getElementById('search').value.toLowerCase();
-            const activeModule = document.querySelector('.module-content.active');
-            if(!activeModule) return;
-
-            const cards = activeModule.querySelectorAll('.lesson-card');
-            cards.forEach(c => {
-                const text = c.innerText.toLowerCase();
-                if(text.includes(term)){
-                    c.style.display = 'block';
-                    if(term.length > 2) c.classList.add('open');
-                } else {
-                    c.style.display = 'none';
-                    c.classList.remove('open');
-                }
-            });
+        function openLesson(id) {
+            const template = document.getElementById('content-' + id);
+            if(template && lessonData[id]) {
+                document.getElementById('detail-title').innerText = lessonData[id].t;
+                document.getElementById('detail-subtitle').innerText = lessonData[id].s;
+                const container = document.getElementById('detail-container');
+                container.innerHTML = "";
+                container.appendChild(template.content.cloneNode(true));
+                document.getElementById('detail-screen').classList.add('active');
+            }
         }
 
-        // Efeito de sombra no header ao rolar
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('mainHeader');
-            if(window.scrollY > 10) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
+        function closeLesson() {
+            document.getElementById('detail-screen').classList.remove('active');
+        }
     </script>
 </body>
 </html>
